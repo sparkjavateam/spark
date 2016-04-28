@@ -24,8 +24,8 @@ import java.util.function.Consumer;
 import static spark.Service.ignite;
 
 /**
- * The main building block of a Spark application is a set of routes. A route is
- * made up of three simple pieces:
+ * The main building block of a Spark application is a set of routes.
+ * A route is made up of three simple pieces:
  * <ul>
  * <li>A verb (get, post, put, delete, head, trace, connect, options)</li>
  * <li>A path (/hello, /users/:name)</li>
@@ -43,7 +43,7 @@ import static spark.Service.ignite;
  */
 public class Spark {
 
-    // Hide constructor
+    // For creating Spark extensions
     protected Spark() {
     }
 
@@ -54,7 +54,7 @@ public class Spark {
         private static final Service INSTANCE = ignite();
     }
 
-    private static Service getInstance() {
+    protected static Service getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
@@ -93,7 +93,7 @@ public class Spark {
      * @param path  the path
      * @param route The route
      */
-    public static void get(final String path, final Route route) {
+    public static void get(String path, Route route) {
         getInstance().get(path, route);
     }
 
@@ -1221,8 +1221,9 @@ public class Spark {
     	getInstance().awaitStop();
     }
 
-    ////////////////
-    // Websockets //
+    //////////////////////////////////////////////////
+    // WebSockets
+    //////////////////////////////////////////////////
 
     /**
      * Maps the given path to the given WebSocket handler.
