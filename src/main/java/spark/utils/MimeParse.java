@@ -112,6 +112,7 @@ public class MimeParse {
             this.quality = quality;
         }
 
+        @Override
         public int compareTo(FitnessAndQuality o) {
             if (fitness == o.fitness) {
                 if (quality == o.quality) {

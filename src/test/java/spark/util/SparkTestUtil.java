@@ -67,6 +67,7 @@ public class SparkTestUtil {
     public void setFollowRedirectStrategy(Integer... codes) {
         final List<Integer> redirectCodes = Arrays.asList(codes);
         DefaultRedirectStrategy redirectStrategy = new DefaultRedirectStrategy() {
+            @Override
             public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context) {
                 boolean isRedirect = false;
                 try {

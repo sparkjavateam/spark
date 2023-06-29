@@ -57,5 +57,6 @@ public abstract class ExceptionHandlerImpl<T extends Exception> implements Excep
      * @param request   The request object providing information about the HTTP request
      * @param response  The response object providing functionality for modifying the response
      */
+    @Override
     public abstract void handle(T exception, Request request, Response response);
 }
