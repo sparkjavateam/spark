@@ -16,11 +16,14 @@
  */
 package spark;
 
+import static java.util.Objects.requireNonNull;
+import static spark.globalstate.ServletFlag.isRunningFromServlet;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
@@ -41,9 +44,6 @@ import spark.routematch.RouteMatch;
 import spark.ssl.SslStores;
 import spark.staticfiles.MimeType;
 import spark.staticfiles.StaticFilesConfiguration;
-
-import static java.util.Objects.requireNonNull;
-import static spark.globalstate.ServletFlag.isRunningFromServlet;
 
 /**
  * Represents a Spark server "session".
@@ -683,7 +683,7 @@ public final class Service extends Routable {
      */
     public synchronized <T extends Exception> void exception(Class<T> exceptionClass, ExceptionHandler<? super T> handler) {
         // wrap
-        ExceptionHandlerImpl wrapper = new ExceptionHandlerImpl<T>(exceptionClass) {
+        ExceptionHandlerImpl<?> wrapper = new ExceptionHandlerImpl<T>(exceptionClass) {
             @Override
             public void handle(T exception, Request request, Response response) {
                 handler.handle(exception, request, response);

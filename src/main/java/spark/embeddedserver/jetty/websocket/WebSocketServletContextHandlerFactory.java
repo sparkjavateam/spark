@@ -47,7 +47,7 @@ public class WebSocketServletContextHandlerFactory {
         if (webSocketHandlers != null) {
             try {
                 webSocketServletContextHandler = new ServletContextHandler(null, "/", true, false);
-                WebSocketUpgradeFilter webSocketUpgradeFilter = WebSocketUpgradeFilter.configureContext(webSocketServletContextHandler);
+                WebSocketUpgradeFilter webSocketUpgradeFilter = WebSocketUpgradeFilter.configure(webSocketServletContextHandler);
                 if (webSocketIdleTimeoutMillis.isPresent()) {
                     webSocketUpgradeFilter.getFactory().getPolicy().setIdleTimeout(webSocketIdleTimeoutMillis.get());
                 }

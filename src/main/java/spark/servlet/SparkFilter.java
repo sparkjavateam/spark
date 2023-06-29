@@ -102,7 +102,7 @@ public class SparkFilter implements Filter {
     protected SparkApplication getApplication(String applicationClassName) throws ServletException {
         try {
             Class<?> applicationClass = Class.forName(applicationClassName);
-            return (SparkApplication) applicationClass.newInstance();
+            return (SparkApplication) applicationClass.getConstructor().newInstance();
         } catch (Exception exc) {
             throw new ServletException(exc);
         }
