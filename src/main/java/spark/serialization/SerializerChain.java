@@ -58,4 +58,8 @@ public final class SerializerChain {
         this.root.processElement(outputStream, element, request, response);
     }
 
+    public void insertBeforeRoot(Serializer serializer){
+        serializer.setNext(root);
+        root=serializer;
+    }
 }

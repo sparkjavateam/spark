@@ -209,5 +209,7 @@ public class MatcherFilter implements Filter {
     public void destroy() {
     }
 
-
+    public SerializerChain getSerializerChain(){
+        return serializerChain;
+    }
 }

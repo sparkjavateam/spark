@@ -57,4 +57,7 @@ public class JettyHandler extends SessionHandler {
 
     }
 
+    public Filter getFilter(){
+        return filter;
+    }
 }

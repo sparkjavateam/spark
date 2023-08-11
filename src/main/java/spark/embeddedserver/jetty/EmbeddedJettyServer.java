@@ -198,4 +198,8 @@ public class EmbeddedJettyServer implements EmbeddedServer {
         this.threadPool = threadPool;
         return this;
     }
+
+    public Handler getHandler(){
+        return handler;
+    }
 }
