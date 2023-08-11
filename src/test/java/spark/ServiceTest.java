@@ -1,11 +1,10 @@
 package spark;
 
+import jakarta.servlet.http.HttpServletResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static spark.Service.ignite;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.junit.Before;

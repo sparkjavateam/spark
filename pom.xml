@@ -33,7 +33,7 @@
     <properties>
         <gpg.skip>false</gpg.skip>
         <java.version>17</java.version>
-        <jetty.version>10.0.15</jetty.version>
+        <jetty.version>11.0.15</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <powermock.version>2.0.9</powermock.version>
         <mockito.version>5.15.2</mockito.version>
