@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
+import spark.Request;
+import spark.Response;
+
 /**
  * Serializer that writes the result of toString to output in UTF-8 encoding
  *
@@ -33,7 +36,7 @@ class DefaultSerializer extends Serializer {
     }
 
     @Override
-    public void process(OutputStream outputStream, Object element) throws IOException {
+    public void process(OutputStream outputStream, Object element, Request request, Response response) throws IOException {
         try {
             outputStream.write(element.toString().getBytes("utf-8"));
         } catch (UnsupportedEncodingException e) {

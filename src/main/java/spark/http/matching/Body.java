@@ -22,6 +22,8 @@ import java.io.OutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import spark.Request;
+import spark.Response;
 import spark.utils.GzipUtils;
 import spark.serialization.SerializerChain;
 
@@ -58,7 +60,7 @@ final class Body {
 
     public void serializeTo(HttpServletResponse httpResponse,
                             SerializerChain serializerChain,
-                            HttpServletRequest httpRequest) throws IOException {
+                            HttpServletRequest httpRequest, Request requestWrapper, Response responseWrapper) throws IOException {
 
         if (!httpResponse.isCommitted()) {
             if (httpResponse.getContentType() == null) {
@@ -69,7 +71,7 @@ final class Body {
             OutputStream responseStream = GzipUtils.checkAndWrap(httpRequest, httpResponse, true);
 
             // Serialize the body to output stream
-            serializerChain.process(responseStream, content);
+            serializerChain.process(responseStream, content, requestWrapper, responseWrapper);
 
             responseStream.flush(); // needed for GZIP stream. Not sure where the HTTP response actually gets cleaned up
             responseStream.close(); // needed for GZIP

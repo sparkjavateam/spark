@@ -19,6 +19,9 @@ package spark.serialization;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import spark.Request;
+import spark.Response;
+
 /**
  * Chain of serializers for the output.
  */
@@ -47,10 +50,12 @@ public final class SerializerChain {
      *
      * @param outputStream the output stream to write to.
      * @param element      the element to serialize.
+     * @param request
+     * @param response
      * @throws IOException in the case of IO error.
      */
-    public void process(OutputStream outputStream, Object element) throws IOException {
-        this.root.processElement(outputStream, element);
+    public void process(OutputStream outputStream, Object element, Request request, Response response) throws IOException {
+        this.root.processElement(outputStream, element, request, response);
     }
 
 }

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import spark.Request;
+import spark.Response;
 import spark.utils.IOUtils;
 
 /**
@@ -35,7 +37,7 @@ class InputStreamSerializer extends Serializer {
     }
 
     @Override
-    public void process(OutputStream outputStream, Object element)
+    public void process(OutputStream outputStream, Object element, Request request, Response response)
             throws IOException {
         try (InputStream is = (InputStream) element) {
             IOUtils.copy(is, outputStream);
