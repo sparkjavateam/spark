@@ -1,6 +1,6 @@
-[![](https://img.shields.io/travis/perwendel/spark.svg)](https://travis-ci.org/perwendel/spark)
-[![](https://img.shields.io/github/license/perwendel/spark.svg)](./LICENSE)
-[![](https://img.shields.io/maven-central/v/com.sparkjava/spark-core.svg)](http://mvnrepository.com/artifact/com.sparkjava/spark-core)
+[![](https://img.shields.io/travis/sparkjavateam/spark.svg)](https://travis-ci.org/perwendel/spark)
+[![](https://img.shields.io/github/license/sparkjavateam/spark.svg)](./LICENSE)
+[![](https://img.shields.io/maven-central/v/io.github.sparkjavateam/spark-core.svg)](http://mvnrepository.com/artifact/io.github.sparkjavateam/spark-core)
 
 Spark - a tiny web framework for Java 8
 ==============================================
@@ -8,28 +8,24 @@ Spark - a tiny web framework for Java 8
 **Spark 2.9.4 is out!!**
 ```xml
 <dependency>
-    <groupId>com.sparkjava</groupId>
+    <groupId>io.github.sparkjavateam</groupId>
     <artifactId>spark-core</artifactId>
     <version>2.9.4</version>
 </dependency>
 ```
 
-Sponsor the project here https://github.com/sponsors/perwendel
-
-For documentation please go to: http://sparkjava.com/documentation
-
 For usage questions, please use [stack overflow with the “spark-java” tag](http://stackoverflow.com/questions/tagged/spark-java) 
 
-Javadoc: http://javadoc.io/doc/com.sparkjava/spark-core
+Javadoc: http://javadoc.io/doc/io.github.sparkjavateam/spark-core
 
-When committing to the project please use Spark format configured in https://github.com/perwendel/spark/blob/master/config/spark_formatter_intellij.xml
+When committing to the project please use Spark format configured in https://github.com/sparkjavateam/spark/blob/master/config/spark_formatter_intellij.xml
 
 Getting started
 ---------------
 
 ```xml
 <dependency>
-    <groupId>com.sparkjava</groupId>
+    <groupId>io.github.sparkjavateam</groupId>
     <artifactId>spark-core</artifactId>
     <version>2.9.4</version>
 </dependency>
