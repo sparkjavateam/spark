@@ -1,4 +1,3 @@
-[![](https://img.shields.io/travis/sparkjavateam/spark.svg)](https://travis-ci.org/perwendel/spark)
 [![](https://img.shields.io/github/license/sparkjavateam/spark.svg)](./LICENSE)
 [![](https://img.shields.io/maven-central/v/io.github.sparkjavateam/spark-core.svg)](http://mvnrepository.com/artifact/io.github.sparkjavateam/spark-core)
 
@@ -46,7 +45,7 @@ View at: http://localhost:4567/hello
 
 Check out and try the examples in the source code.
 You can also check out the javadoc. After getting the source from
-[github](https://github.com/perwendel/spark) run: 
+[Github](https://github.com/sparkjavateam/spark) run: 
 
     mvn javadoc:javadoc
 
