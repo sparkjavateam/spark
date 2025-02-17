@@ -27,7 +27,6 @@
         </developer>
         <developer>
             <name>SoltauFintel</name>
-            <email>warm@mwvb.de</email>
         </developer>
     </developers>
 
@@ -35,8 +34,7 @@
         <java.version>1.8</java.version>
         <jetty.version>9.4.48.v20220622</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <powermock.version>1.7.4</powermock.version>
-        <mockito.version>1.10.19</mockito.version>
+        <mockito.version>5.15.2</mockito.version>
     </properties>
 
     <dependencies>
@@ -89,18 +87,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-            <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -163,7 +149,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>3.5.2</version>
                 <configuration>
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>

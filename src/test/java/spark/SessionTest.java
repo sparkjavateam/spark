@@ -1,18 +1,20 @@
 package spark;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.powermock.reflect.Whitebox;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import javax.servlet.http.HttpSession;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class SessionTest {
 
@@ -59,7 +61,7 @@ public class SessionTest {
     @Test
     public void testSession() {
 
-        HttpSession internalSession = Whitebox.getInternalState(session, "session");
+        HttpSession internalSession = (HttpSession) Whitebox.getInternalState(session, "session");
         assertEquals("Internal session should be set to the http session provided during instantiation",
                 httpSession, internalSession);
     }

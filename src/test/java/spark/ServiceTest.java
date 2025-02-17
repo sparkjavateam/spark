@@ -1,5 +1,10 @@
 package spark;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static spark.Service.ignite;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
@@ -8,17 +13,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 
 import spark.embeddedserver.EmbeddedServer;
 import spark.embeddedserver.EmbeddedServers;
 import spark.route.Routes;
 import spark.ssl.SslStores;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static spark.Service.ignite;
 
 public class ServiceTest {
 
@@ -85,7 +84,7 @@ public class ServiceTest {
     public void testIpAddress_whenInitializedFalse() {
         service.ipAddress(IP_ADDRESS);
 
-        String ipAddress = Whitebox.getInternalState(service, "ipAddress");
+        String ipAddress = (String) Whitebox.getInternalState(service, "ipAddress");
         assertEquals("IP address should be set to the IP address that was specified", IP_ADDRESS, ipAddress);
     }
 
@@ -102,7 +101,7 @@ public class ServiceTest {
     public void testSetIpAddress_whenInitializedFalse() {
         service.ipAddress(IP_ADDRESS);
 
-        String ipAddress = Whitebox.getInternalState(service, "ipAddress");
+        String ipAddress = (String) Whitebox.getInternalState(service, "ipAddress");
         assertEquals("IP address should be set to the IP address that was specified", IP_ADDRESS, ipAddress);
     }
 
@@ -119,7 +118,7 @@ public class ServiceTest {
     public void testPort_whenInitializedFalse() {
         service.port(8080);
 
-        int port = Whitebox.getInternalState(service, "port");
+        int port = (int) Whitebox.getInternalState(service, "port");
         assertEquals("Port should be set to the Port that was specified", 8080, port);
     }
 
@@ -136,7 +135,7 @@ public class ServiceTest {
     public void testSetPort_whenInitializedFalse() {
         service.port(8080);
 
-        int port = Whitebox.getInternalState(service, "port");
+        int port = (int) Whitebox.getInternalState(service, "port");
         assertEquals("Port should be set to the Port that was specified", 8080, port);
     }
 
@@ -182,9 +181,9 @@ public class ServiceTest {
     @Test
     public void testThreadPool_whenOnlyMaxThreads() {
         service.threadPool(100);
-        int maxThreads = Whitebox.getInternalState(service, "maxThreads");
-        int minThreads = Whitebox.getInternalState(service, "minThreads");
-        int threadIdleTimeoutMillis = Whitebox.getInternalState(service, "threadIdleTimeoutMillis");
+        int maxThreads = (int) Whitebox.getInternalState(service, "maxThreads");
+        int minThreads = (int) Whitebox.getInternalState(service, "minThreads");
+        int threadIdleTimeoutMillis = (int) Whitebox.getInternalState(service, "threadIdleTimeoutMillis");
         assertEquals("Should return maxThreads specified", 100, maxThreads);
         assertEquals("Should return minThreads specified", -1, minThreads);
         assertEquals("Should return threadIdleTimeoutMillis specified", -1, threadIdleTimeoutMillis);
@@ -193,9 +192,9 @@ public class ServiceTest {
     @Test
     public void testThreadPool_whenMaxMinAndTimeoutParameters() {
         service.threadPool(100, 50, 75);
-        int maxThreads = Whitebox.getInternalState(service, "maxThreads");
-        int minThreads = Whitebox.getInternalState(service, "minThreads");
-        int threadIdleTimeoutMillis = Whitebox.getInternalState(service, "threadIdleTimeoutMillis");
+        int maxThreads = (int) Whitebox.getInternalState(service, "maxThreads");
+        int minThreads = (int) Whitebox.getInternalState(service, "minThreads");
+        int threadIdleTimeoutMillis = (int) Whitebox.getInternalState(service, "threadIdleTimeoutMillis");
         assertEquals("Should return maxThreads specified", 100, maxThreads);
         assertEquals("Should return minThreads specified", 50, minThreads);
         assertEquals("Should return threadIdleTimeoutMillis specified", 75, threadIdleTimeoutMillis);
@@ -213,7 +212,7 @@ public class ServiceTest {
     @Test
     public void testSecure_thenReturnNewSslStores() {
         service.secure("keyfile", "keypassword", "truststorefile", "truststorepassword");
-        SslStores sslStores = Whitebox.getInternalState(service, "sslStores");
+        SslStores sslStores = (SslStores) Whitebox.getInternalState(service, "sslStores");
         assertNotNull("Should return a SslStores because we configured it to have one", sslStores);
         assertEquals("Should return keystoreFile from SslStores", "keyfile", sslStores.keystoreFile());
         assertEquals("Should return keystorePassword from SslStores", "keypassword", sslStores.keystorePassword());
