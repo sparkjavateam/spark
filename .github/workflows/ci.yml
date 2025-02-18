@@ -23,12 +23,13 @@ jobs:
       
       - name: Install latest Maven manually
         run: |
-          MAVEN_VERSION=3.9.6
+          MAVEN_VERSION=3.9.9
           curl -fsSL https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -o maven.tar.gz
           tar -xvzf maven.tar.gz
           sudo mv apache-maven-${MAVEN_VERSION} /opt/maven
           echo "export PATH=/opt/maven/bin:$PATH" >> $GITHUB_ENV
-          mvn -version  # Überprüfung der Version      
+          mvn -version
+          ./mvnw -version
       
       - name: Run tests
         run: ./mvnw test
