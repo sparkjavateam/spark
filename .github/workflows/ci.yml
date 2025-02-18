@@ -21,11 +21,14 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       
-      - name: Install latest Maven
+      - name: Install latest Maven manually
         run: |
-          sudo apt update
-          sudo apt install -y maven
-          mvn -version  # check version
+          MAVEN_VERSION=3.9.6
+          curl -fsSL https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -o maven.tar.gz
+          tar -xvzf maven.tar.gz
+          sudo mv apache-maven-${MAVEN_VERSION} /opt/maven
+          echo "export PATH=/opt/maven/bin:$PATH" >> $GITHUB_ENV
+          mvn -version  # Überprüfung der Version      
       
       - name: Run tests
         run: ./mvnw test
