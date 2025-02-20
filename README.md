@@ -1,10 +1,16 @@
 [![](https://img.shields.io/github/license/sparkjavateam/spark.svg)](./LICENSE)
 [![](https://img.shields.io/maven-central/v/io.github.sparkjavateam/spark-core.svg)](http://mvnrepository.com/artifact/io.github.sparkjavateam/spark-core)
 
-Spark - a tiny web framework for Java 8
-==============================================
+# Spark - micro web framework for Java
 
-**Spark 2.9.4 is out!!**
+## Spark 2.9.4 is out!
+
+Gradle
+```gradle
+implementation 'io.github.sparkjavateam:spark-core:2.9.4'
+```
+
+Maven
 ```xml
 <dependency>
     <groupId>io.github.sparkjavateam</groupId>
@@ -13,28 +19,20 @@ Spark - a tiny web framework for Java 8
 </dependency>
 ```
 
-For usage questions, please use [stack overflow with the “spark-java” tag](http://stackoverflow.com/questions/tagged/spark-java) 
+## About
+It looks like Per Wendel is no longer continuing this wonderful [Sinatra](https://sinatrarb.com)-like micro web framework for Java. This is the community driven continuation. More supporters are welcome!
+If you want to change something, submit a pull request. If you found a bug, submit a test case - also as a PR.
+For questions please use [Github Discussions](https://github.com/sparkjavateam/spark/discussions). Also see the [Javadoc](http://javadoc.io/doc/io.github.sparkjavateam/spark-core).
+This framework is also called Sparkjava to avoid confusion with Apache Spark.
+Main support is for **Java 17**. It also works and is tested for Java 11 LTS and Java 21 LTS. It might work for other versions >= 8.
 
-Javadoc: http://javadoc.io/doc/io.github.sparkjavateam/spark-core
-
-When committing to the project please use Spark format configured in https://github.com/sparkjavateam/spark/blob/master/config/spark_formatter_intellij.xml
-
-Getting started
----------------
-
-```xml
-<dependency>
-    <groupId>io.github.sparkjavateam</groupId>
-    <artifactId>spark-core</artifactId>
-    <version>2.9.4</version>
-</dependency>
-```
+## Getting started
 
 ```java
 import static spark.Spark.*;
 
 public class HelloWorld {
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
         get("/hello", (request, response) -> "Hello World!");
     }
 }
@@ -42,17 +40,9 @@ public class HelloWorld {
 
 View at: http://localhost:4567/hello
 
-
 Check out and try the examples in the source code.
-You can also check out the javadoc. After getting the source from
-[Github](https://github.com/sparkjavateam/spark) run: 
 
-    mvn javadoc:javadoc
-
-The result is put in /target/site/apidocs
-
-Examples
----------
+## Examples
 
 Simple example showing some basic functionality
 
@@ -318,7 +308,6 @@ public class FilterExampleAttributes {
 }
 ```
 
-
 ---------------------------------
 
 Example showing how to serve static resources
@@ -359,8 +348,7 @@ public class JsonAcceptTypeExample {
 
 Example showing how to render a view from a template. Note that we are using `ModelAndView` class for setting the object and name/location of template. 
 
-First of all we define a class which handles and renders output depending on template engine used. In this case [FreeMarker](http://freemarker.incubator.apache.org/).
-
+First of all we define a class which handles and renders output depending on template engine used. In this case [FreeMarker](https://freemarker.apache.org).
 
 ```java
 public class FreeMarkerTemplateEngine extends TemplateEngine {
@@ -445,6 +433,5 @@ public class TransformerExample {
 }
 ```
 
-Debugging
-------------------
+## Debugging
 See [Spark-debug-tools](https://github.com/perwendel/spark-debug-tools) as a separate module.
