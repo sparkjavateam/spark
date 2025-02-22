@@ -3,3 +3,4 @@ plugins:
 - jekyll-remote-theme
 title: Spark
 description: micro web framework for Java
+show_downloads: true
