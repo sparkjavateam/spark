@@ -2,5 +2,4 @@ remote_theme: pages-themes/leap-day@v0.2.0
 plugins:
 - jekyll-remote-theme
 title: Spark
-description: micro web framework for Java
-show_downloads: true
+description: Micro web framework for Java
