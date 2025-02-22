@@ -2,8 +2,8 @@ name: Spark Framework CI
 
 on:
   push:
-	branches-ignore:
-		- 'website'
+	paths-ignore:
+      - 'docs/**'
   pull_request:
 
 jobs:
