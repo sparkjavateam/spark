@@ -2,7 +2,7 @@ name: Spark Framework CI
 
 on:
   push:
-	paths-ignore:
+    paths-ignore:
       - 'docs/**'
   pull_request:
 
