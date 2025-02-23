@@ -23,7 +23,7 @@
 The Markdown source files are in folder /docs. If you create a PR update these files.
 
 **How to release the documentation:**
-The Java tool "sitegen" is used to produce HTML files in the folder /github-pages. Commit and push these files.
+The Java tool "sitegen" is used to produce HTML files in the folder /docs. Commit and push these files.
 Then a Github action is triggered to publish these pages to the Github Pages based [Spark homepage](https://sparkjavateam.github.io/spark).
 
 **How to call sitegen:**
@@ -31,9 +31,9 @@ Then a Github action is triggered to publish these pages to the Github Pages bas
 1. Clone the [sitegen repository](https://github.com/SoltauFintel/sitegen) to your IDE.
 2. Build it using `gradlew iD`.
 3. Write a little batch file or shell script to call the sitegen tool.
-   - For Windows (/docs/b.bat): `<path-to-sitegen>\build\install\sitegen\bin\sitegen.bat . ../github-pages`
-   - For Mac (/docs/b): `<path-to-sitegen>/build/install/sitegen/bin/sitegen . ../github-pages`
-4. After modifing a docs file call that script from inside the docs folder.
+   - /docs-source/b.bat for Windows: `<path-to-sitegen>\build\install\sitegen\bin\sitegen.bat . ../docs`
+   - /docs-source/b for Mac: `<path-to-sitegen>/build/install/sitegen/bin/sitegen . ../docs`
+4. After modifing a docs-source file call that script from inside the docs-source folder.
 
 Update file 'toc' if you have added a Markdown file. The first expression is the title in quotes, then a space and after that the
 filename without an extension.
