@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spark project rules</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<style>
+    p code, li code {
+        background-color: #eee;
+        padding: 2px 4px 2px 4px;
+        border-radius: 6px;
+    }
+    a:hover {
+        color: #c00;
+        background-color: #ff3;
+        text-decoration: none;
+    }
+    a.nav-link:hover, a.navbar-brand:hover {
+        background-color: #eee;
+    }
+    pre {
+        background-color: #cde;
+        padding: 8px;
+        border-radius: 8px;
+    }
+    table {
+        margin-bottom: 1em;
+    }
+    table, th, td {
+        border: 1px solid #999;
+    }
+    th, td {
+        padding: 0 4px 0 4px;
+    }
+    img {
+        max-width: 100%;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    h4 {
+        font-size: 1.1rem;
+    }
+</style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <a href="project-rules.html" class="menulink">Project rules</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>Spark project rules</h1>
+<h2>Codestyle</h2>
+<ul>
+<li>Java 17 syntax</li>
+<li>No wildcards in <code>import</code> lines.</li>
+<li>Closing <code>{</code> at end of line.</li>
+<li>Use spaces instead of tabs.</li>
+<li>example: Write one space before and after brackets in the if or for command.<br>bad: <code>if(a==b){</code><br>good: <code>if (a == b) {</code></li>
+<li>Use <code>@Override</code> annotation.</li>
+<li>Test case class name must end with 'Test'.</li>
+</ul>
+<h2>Processing a pull request from a maintainer</h2>
+<ul>
+<li>Tests ok?</li>
+<li>Code-review by other maintainer</li>
+<li>Author squashes the PR into the master</li>
+</ul>
+<h2>Processing a pull request from a contributor</h2>
+<ul>
+<li>Tests ok?</li>
+<li>Code-review by one maintainer</li>
+<li>Maintainer squashes the PR into the master</li>
+</ul>
+<h2>How to update the documentation</h2>
+<p>The Markdown source files are in folder /docs. If you create a PR update these files.</p>
+<p><strong>How to release the documentation:</strong>
+The Java tool &quot;sitegen&quot; is used to produce HTML files in the folder /github-pages. Commit and push these files.
+Then a Github action is triggered to publish these pages to the Github Pages based <a href="https://sparkjavateam.github.io/spark">Spark homepage</a>.</p>
+<p><strong>How to call sitegen:</strong></p>
+<ol>
+<li>Clone the <a href="https://github.com/SoltauFintel/sitegen">sitegen repository</a> to your IDE.</li>
+<li>Build it using <code>gradlew iD</code>.</li>
+<li>Write a little batch file or shell script to call the sitegen tool.
+<ul>
+<li>For Windows (/docs/b.bat): <code>&lt;path-to-sitegen&gt;\build\install\sitegen\bin\sitegen.bat . ../github-pages</code></li>
+<li>For Mac (/docs/b): <code>&lt;path-to-sitegen&gt;/build/install/sitegen/bin/sitegen . ../github-pages</code></li>
+</ul>
+</li>
+<li>After modifing a docs file call that script from inside the docs folder.</li>
+</ol>
+<p>Update file 'toc' if you have added a Markdown file. The first expression is the title in quotes, then a space and after that the
+filename without an extension.</p>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spark</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<style>
+    p code, li code {
+        background-color: #eee;
+        padding: 2px 4px 2px 4px;
+        border-radius: 6px;
+    }
+    a:hover {
+        color: #c00;
+        background-color: #ff3;
+        text-decoration: none;
+    }
+    a.nav-link:hover, a.navbar-brand:hover {
+        background-color: #eee;
+    }
+    pre {
+        background-color: #cde;
+        padding: 8px;
+        border-radius: 8px;
+    }
+    table {
+        margin-bottom: 1em;
+    }
+    table, th, td {
+        border: 1px solid #999;
+    }
+    th, td {
+        padding: 0 4px 0 4px;
+    }
+    img {
+        max-width: 100%;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    h4 {
+        font-size: 1.1rem;
+    }
+</style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <a href="project-rules.html" class="menulink">Project rules</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>Spark</h1>
+<p>Micro web framework for Java</p>
+<h2>Hello World example</h2>
+<pre><code>import static spark.Spark.*;
+
+public class HelloWorld {
+  public static void main(String[] args) {
+    get(&quot;/hello&quot;, (req, res) -&gt; &quot;Hello World&quot;);
+  }
+}
+</code></pre>
+<p>View in browser: http://localhost:4567/hello</p>
+<h2>About</h2>
+<p>Spark is a Java framework that makes it very easy to write web applications.
+It was inspired by the micro web framework &quot;<a href="https://sinatrarb.com">Sinatra</a>&quot; developed in Ruby.
+Spark is often used for creating REST APIs. Spark is also used for websites that serve many, many users.
+Spark uses the embedded servlet container Eclipse Jetty.</p>
+<p>This framework is also called Sparkjava to avoid confusion with Apache Spark.</p>
+<p>Spark has been primarily developed by Per Wendel since 2011.
+Since he is obviously no longer continuing it, we have created a <strong>community-driven</strong> fork.
+<a href="contribute.html">More supporters are welcome!</a></p>
+<p><a href="release-notes.html">Release Notes</a></p>
+<p>++ This website is still under construction. ++</p>
+<h2>Java version</h2>
+<p>Main support is for <strong>Java 17</strong>. It also works and is tested for Java 11 LTS and Java 21 LTS. It might work for other versions &gt;= 8.</p>
+<h2>License</h2>
+<p><a href="https://github.com/sparkjavateam/spark/blob/master/LICENSE">Apache License 2.0</a></p>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
