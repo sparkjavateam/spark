@@ -43,8 +43,6 @@ Use `req.session([create])` to read/write session attributes.
 See [Javadoc](https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html) for other methods, especially
 for getting information about the request.
 
-----
-
 ## Response
 The [Response](https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Response.html)
 object receives the response data.

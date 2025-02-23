@@ -1,0 +1,47 @@
+p code, li code {
+    background-color: #eee;
+    padding: 2px 4px 2px 4px;
+    border-radius: 6px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a.nav-link:hover, a.navbar-brand:hover {
+    background-color: #eee;
+}
+
+pre {
+    background-color: #cde;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+table {
+    margin-bottom: 1em;
+}
+
+table, th, td {
+    border: 1px solid #999;
+}
+
+th, td {
+    padding: 0 4px 0 4px;
+}
+
+img {
+    max-width: 100%;
+}
+
+h2 {
+    border-bottom: 1pt dashed #ddd;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
