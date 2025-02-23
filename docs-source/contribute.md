@@ -14,11 +14,9 @@ If you're unsure whether we'll accept the new feature, post it as a concept unde
 1. Fork the Github repository.
 2. Clone it into your IDE. A JDK 17 must be configured. Don't use a JRE.
 3. Create a branch.
-4. Write a testcase and modify the code.
+4. Write a testcase and modify the code. See [Codestyle](project-rules.html).
 5. Commit and push the branch.
 6. The push message should give you a link for creating a pull request.
-
-See [Codestyle](project-rules.html).
 
 ## Found a bug
 We don't accept issues. Please submit a testcase as a pull request.
