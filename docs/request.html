@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request, Response</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>Request, Response</h1>
+<h2>Request</h2>
+<p>The <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Request</a>
+object retrieves the information sent with the HTTP request.</p>
+<h3>Parameters</h3>
+<p>Use <code>req.params(name)</code> to access a path parameter.</p>
+<pre><code>Spark.get(&quot;/book/:id&quot;, (req, res) -&gt; &quot;received ID &quot; + req.params(&quot;id&quot;));
+</code></pre>
+<p>Use <code>req.params()</code> for getting all parameters as Map.</p>
+<h3>Wildcards</h3>
+<p>Use <code>req.splat()</code> to access the wildcard path parameters.</p>
+<h3>Sent message</h3>
+<p>A message sent using e.g. the POST verb can be retrieved using <code>req.body()</code> (or <code>req.bodyAsBytes()</code>).</p>
+<h3>Query parameters and form data</h3>
+<p>Use <code>req.queryParams(name)</code> to access a query parameter that is part of the URL:</p>
+<p><code>http://server:4567/path?name=value&amp;name2=value2</code></p>
+<pre><code>req.queryParams(&quot;name&quot;);  // = &quot;value&quot;
+req.queryParams(&quot;name2&quot;); // = &quot;value2&quot;
+</code></pre>
+<p><code>queryParams(name)</code> is also used for form data sent e.g. by a POST message.</p>
+<p>See <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Javadoc</a> for more query... methods.</p>
+<h3>Cookies</h3>
+<p>Use <code>req.cookies()</code> or <code>req.cookie(name)</code> to read cookies. The Response object has methods for writing cookies.</p>
+<h3>Session</h3>
+<p>Use <code>req.session([create])</code> to read/write session attributes.</p>
+<h3>Other methods</h3>
+<p>See <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Javadoc</a> for other methods, especially
+for getting information about the request.</p>
+<h2>Response</h2>
+<p>The <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Response.html">Response</a>
+object receives the response data.</p>
+<p>Using the <code>res.redirect(path)</code> method, the client (browser) can be redirected to a new URL. For creating route aliases you
+can use the <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Redirect.html">Redirect API</a>
+using <code>import static spark.Spark.redirect</code>. Example: <code>redirect.get(&quot;/old-path&quot;, &quot;/v2/new-path&quot;);</code></p>
+<p>Use <code>res.status(int)</code> for setting the response HTTP status code (<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a>),
+e.g. <code>req.status(401);</code></p>
+<p>Use <code>res.type(mimeType)</code> for setting the content type of the response.</p>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

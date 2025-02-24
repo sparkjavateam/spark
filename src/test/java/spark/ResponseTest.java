@@ -1,17 +1,19 @@
 package spark;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.powermock.reflect.Whitebox;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 public class ResponseTest {
 
@@ -29,10 +31,10 @@ public class ResponseTest {
 
     @Test
     public void testConstructor_whenHttpServletResponseParameter() {
-        HttpServletResponse returnResponse = Whitebox.getInternalState(response, "response");
+        HttpServletResponse returnResponse = (HttpServletResponse) Whitebox.getInternalState(response, "response");
         assertSame("Should be the same the HttpServletResponse object for httpServletResponse and returnResponse", httpServletResponse, returnResponse);
     }
-
+    
     @Test
     public void testSetStatus() {
         final int finalStatusCode = HttpServletResponse.SC_OK;
@@ -62,16 +64,16 @@ public class ResponseTest {
     }
 
     @Test
-    public void testSetBody() {
+    public void testSetBody() throws Exception {
         final String finalBody = "Hello world!";
 
         response.body(finalBody);
-        String returnBody = Whitebox.getInternalState(response, "body");
+        String returnBody = (String) Whitebox.getInternalState(response, "body");
         assertEquals("Should return body specified", finalBody, returnBody);
     }
 
     @Test
-    public void testGetBody() {
+    public void testGetBody() throws Exception {
         final String finalBody = "Hello world!";
 
         Whitebox.setInternalState(response, "body", finalBody);

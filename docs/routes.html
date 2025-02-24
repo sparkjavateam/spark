@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Routes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>Routes</h1>
+<p>Main part is serving routes. The class
+<code>spark.Spark</code> (<a href="https://javadoc.io/doc/io.github.sparkjavateam/spark-core/latest/spark/Spark.html">Javadoc</a>)
+defines a static method for every HTTP verb:</p>
+<ul>
+<li>get</li>
+<li>post</li>
+<li>put</li>
+<li>delete</li>
+<li>patch</li>
+<li>connect</li>
+<li>head</li>
+<li>options</li>
+<li>trace</li>
+</ul>
+<h2>Path</h2>
+<p>The first argument is the path. The path is the path after the host name (or part of it). The path can contain parameters
+(e.g. <code>/book/:id/edit</code>) and wildcards (<code>/product/*</code>).</p>
+<h2>Route</h2>
+<p>An object that implements <a href="https://javadoc.io/doc/io.github.sparkjavateam/spark-core/latest/spark/Route.html">Route</a> or TemplateViewRoute is also always an argument. Typically, a route is defined as
+<code>(req, res) -&gt; code_returning_the_response</code>, where req is the <a href="request.html">Request</a> object and res is the
+<a href="request.html">Response</a> object. The return value is an Object. Often it is HTML or JSON. If the route wants to return nothing
+you can return <code>null</code>.</p>
+<h2>ResponseTransformer</h2>
+<p>Use the HTTP verb methods with a ResponseTransformer argument if you want to transform the response object (to a String).
+A typical use case is that a route returns a data object and a JsonTransformer transforms this object into a JSON string.</p>
+<pre><code>import com.google.gson.Gson;
+
+public class JsonTransformer implements ResponseTransformer {
+  private static final Gson gson = new Gson();
+
+  @Override
+  public String render(Object model) {
+    return gson.toJson(model);
+  }
+}
+</code></pre>
+<h2>Accept Type</h2>
+<p>If you specify a MIME type as the Accept Type String, HTTP verb methods will only be called if the caller has also specified
+this MIME type in the Accept attribute of the HTTP request.</p>
+<ul>
+<li>text/plain</li>
+<li>text/html</li>
+<li>text/xml (or application/xml)</li>
+<li>text/csv</li>
+<li>application/json</li>
+<li>application/pdf</li>
+<li>application/zip</li>
+<li>image/png</li>
+<li>image/jpeg</li>
+</ul>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

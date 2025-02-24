@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>More about routes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>More about routes</h1>
+<h2>Filter</h2>
+<p>Use <code>Spark.before()</code> to process a request before the Route is called.
+Typically, this filter is used to protect routes that are only allowed to be accessed by logged in users.</p>
+<p>Use <code>Spark.after()</code> to process a request after the Route is called.</p>
+<p>Use <code>Spark.afterAfter()</code> to process a request after the after filters even in case of an exception. It's like a finally block.</p>
+<h2>Halt</h2>
+<p>Use <code>Spark.halt()</code> to stop a request immediately inside a filter or route.
+A typical use case is calling halt() in the before filter if the user login failed.</p>
+<h2>Error handling</h2>
+<p>Use <code>Spark.notFound(html)</code> to send your own status 404 &quot;page not found&quot; error page.</p>
+<p>To react on any uncatched exception use <code>Spark.exception(YourException.class, (exception, req, res) -&gt; { ... })</code>.
+Don't call halt() in such exception handling.</p>
+<h2>Static files</h2>
+<p>A website typically needs static files such as CSS and JavaScript files. Spark can deliver these files without routes.
+To do this, place the files in the folder src/main/resources/web, for example. If the file css/site.css is located there,
+it can be loaded in the browser via &quot;http://localhost:4567/css/site.css&quot;.</p>
+<p>Use <code>Spark.staticFiles.location(&quot;web&quot;)</code> for defining your base folder inside src/main/resources that contains
+static files to be served by Spark.
+Also use <code>Spark.staticFiles.externalLocation(&quot;src/main/resources/web&quot;)</code> if you are in IDE mode. The first method
+is for files inside the Classpath, the second for files outside the Classpath. Call these methods <em>before</em> your route definitions. If
+there are no routes you have to call <code>Spark.init()</code> to start the server.</p>
+<h2>Compress communication</h2>
+<p>GZIP is done automatically if it's in both the request and the response headers. This usually only means that you have to set it
+in your response headers.</p>
+<p>If you want to GZIP a single response, you can add it manually to your route:</p>
+<pre><code>Spark.get(path, (req, res) -&gt; {
+  // ...
+  res.header(&quot;Content-Encoding&quot;, &quot;gzip&quot;);
+});
+</code></pre>
+<p>If you want to GZIP everything, you can use
+<code>Spark.after((req, res) -&gt; res.header(&quot;Content-Encoding&quot;, &quot;gzip&quot;));</code></p>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

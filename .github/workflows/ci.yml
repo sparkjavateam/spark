@@ -10,13 +10,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '1.8', '1.9', '1.10', '1.11' ]
+        java: [ '11', '17', '21' ]
     name: Java Version ${{ matrix.java }}
     steps:
-      - uses: actions/checkout@master
-      - name: Setup java
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: ${{ matrix.java }}
-          architecture: x64
-      - run: ./mvnw test
+      
+      - name: Install latest Maven
+        run: |
+          sudo apt update
+          sudo apt install -y maven
+          echo "mvn -version"
+          mvn -version
+          echo "./mvnw -version"
+          ./mvnw -version
+          
+      - name: Run tests
+        run: ./mvnw test
