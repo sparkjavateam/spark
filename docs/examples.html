@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Examples</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Spark</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sitemap.html">Sitemap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sparkjavateam/spark">Github</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" style="margin-bottom: 2em;">
+      <div class="col-2 d-none d-sm-none d-md-block" style="font-size: 10pt;">
+        
+            <br/>
+            
+                <a href="index.html" class="menulink">Spark</a>
+            
+        
+            <br/>
+            
+                <a href="download.html" class="menulink">Download</a>
+            
+        
+            <br/>
+            
+                <a href="release-notes.html" class="menulink">Release Notes</a>
+            
+        
+            <br/>
+            
+                <a href="contribute.html" class="menulink">Contribute</a>
+            
+        
+            <br/>
+            
+                <br/><small>Documentation</small>
+            
+        
+            <br/>
+            
+                <a href="start.html" class="menulink">Start and stop</a>
+            
+        
+            <br/>
+            
+                <a href="routes.html" class="menulink">Routes</a>
+            
+        
+            <br/>
+            
+                <a href="request.html" class="menulink">Request, Response</a>
+            
+        
+            <br/>
+            
+                <a href="more.html" class="menulink">More about routes</a>
+            
+        
+            <br/>
+            
+                <a href="upload.html" class="menulink">Upload and download</a>
+            
+        
+            <br/>
+            
+                <br/><small>Examples</small>
+            
+        
+            <br/>
+            
+                <a href="examples.html" class="menulink">Examples</a>
+            
+        
+      </div>
+      <div class="col">
+<h1>Examples</h1>
+<ul>
+<li>Simple example showing some basic functionality</li>
+<li>A simple CRUD example showing how to create, get, update and delete book resources</li>
+<li>Example showing a very simple (and stupid) authentication filter that is executed before all other resources</li>
+<li>Example showing how to use attributes</li>
+<li>Example showing how to serve static resources</li>
+<li>Example showing how to define content depending on accept type</li>
+<li>Example showing how to render a view from a template</li>
+<li>Example of using Transformer</li>
+</ul>
+<h2>Simple example showing some basic functionality</h2>
+<pre><code>import static spark.Spark.*;
+
+/**
+ * A simple example just showing some basic functionality
+ */
+public class SimpleExample {
+
+    public static void main(String[] args) {
+
+        // port(5678); &lt;- Uncomment this if you want spark to listen to port 5678 instead of the default 4567
+
+        get(&quot;/hello&quot;, (request, response) -&gt; &quot;Hello World!&quot;);
+
+        post(&quot;/hello&quot;, (request, response) -&gt;
+            &quot;Hello World: &quot; + request.body()
+        );
+
+        get(&quot;/private&quot;, (request, response) -&gt; {
+            response.status(401);
+            return &quot;Go Away!!!&quot;;
+        });
+
+        get(&quot;/users/:name&quot;, (request, response) -&gt; &quot;Selected user: &quot; + request.params(&quot;:name&quot;));
+
+        get(&quot;/news/:section&quot;, (request, response) -&gt; {
+            response.type(&quot;text/xml&quot;);
+            return &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;news&gt;&quot; + request.params(&quot;section&quot;) + &quot;&lt;/news&gt;&quot;;
+        });
+
+        get(&quot;/protected&quot;, (request, response) -&gt; {
+            halt(403, &quot;I don't think so!!!&quot;);
+            return null;
+        });
+
+        get(&quot;/redirect&quot;, (request, response) -&gt; {
+            response.redirect(&quot;/news/world&quot;);
+            return null;
+        });
+
+        get(&quot;/&quot;, (request, response) -&gt; &quot;root&quot;);
+    }
+}
+</code></pre>
+<h2>A simple CRUD example showing how to create, get, update and delete book resources</h2>
+<pre><code>import static spark.Spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+/**
+ * A simple CRUD example showing how to create, get, update and delete book resources.
+ */
+public class Books {
+
+    /**
+     * Map holding the books
+     */
+    private static Map&lt;String, Book&gt; books = new HashMap&lt;String, Book&gt;();
+
+    public static void main(String[] args) {
+        final Random random = new Random();
+
+        // Creates a new book resource, will return the ID to the created resource
+        // author and title are sent in the post body as x-www-urlencoded values e.g. author=Foo&amp;title=Bar
+        // you get them by using request.queryParams(&quot;valuename&quot;)
+        post(&quot;/books&quot;, (request, response) -&gt; {
+            String author = request.queryParams(&quot;author&quot;);
+            String title = request.queryParams(&quot;title&quot;);
+            Book book = new Book(author, title);
+
+            int id = random.nextInt(Integer.MAX_VALUE);
+            books.put(String.valueOf(id), book);
+
+            response.status(201); // 201 Created
+            return id;
+        });
+
+        // Gets the book resource for the provided id
+        get(&quot;/books/:id&quot;, (request, response) -&gt; {
+            Book book = books.get(request.params(&quot;:id&quot;));
+            if (book != null) {
+                return &quot;Title: &quot; + book.getTitle() + &quot;, Author: &quot; + book.getAuthor();
+            } else {
+                response.status(404); // 404 Not found
+                return &quot;Book not found&quot;;
+            }
+        });
+
+        // Updates the book resource for the provided id with new information
+        // author and title are sent in the request body as x-www-urlencoded values e.g. author=Foo&amp;title=Bar
+        // you get them by using request.queryParams(&quot;valuename&quot;)
+        put(&quot;/books/:id&quot;, (request, response) -&gt; {
+            String id = request.params(&quot;:id&quot;);
+            Book book = books.get(id);
+            if (book != null) {
+                String newAuthor = request.queryParams(&quot;author&quot;);
+                String newTitle = request.queryParams(&quot;title&quot;);
+                if (newAuthor != null) {
+                    book.setAuthor(newAuthor);
+                }
+                if (newTitle != null) {
+                    book.setTitle(newTitle);
+                }
+                return &quot;Book with id '&quot; + id + &quot;' updated&quot;;
+            } else {
+                response.status(404); // 404 Not found
+                return &quot;Book not found&quot;;
+            }
+        });
+
+        // Deletes the book resource for the provided id
+        delete(&quot;/books/:id&quot;, (request, response) -&gt; {
+            String id = request.params(&quot;:id&quot;);
+            Book book = books.remove(id);
+            if (book != null) {
+                return &quot;Book with id '&quot; + id + &quot;' deleted&quot;;
+            } else {
+                response.status(404); // 404 Not found
+                return &quot;Book not found&quot;;
+            }
+        });
+
+        // Gets all available book resources (ids)
+        get(&quot;/books&quot;, (request, response) -&gt; {
+            String ids = &quot;&quot;;
+            for (String id : books.keySet()) {
+                ids += id + &quot; &quot;;
+            }
+            return ids;
+        });
+    }
+
+    public static class Book {
+        public String author, title;
+
+        public Book(String author, String title) {
+            this.author = author;
+            this.title = title;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+    }
+}
+</code></pre>
+<h2>Example showing a very simple (and stupid) authentication filter that is executed before all other resources</h2>
+<pre><code>import static spark.Spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Example showing a very simple (and stupid) authentication filter that is
+ * executed before all other resources.
+ *
+ * When requesting the resource with e.g.
+ *     http://localhost:4567/hello?user=some&amp;password=guy
+ * the filter will stop the execution and the client will get a 401 UNAUTHORIZED
+ * with the content 'You are not welcome here'
+ *
+ * When requesting the resource with e.g.
+ *     http://localhost:4567/hello?user=foo&amp;password=bar
+ * the filter will accept the request and the request will continue to the /hello route.
+ *
+ * Note: There is a second &quot;before filter&quot; that adds a header to the response
+ * Note: There is also an &quot;after filter&quot; that adds a header to the response
+ */
+public class FilterExample {
+    private static Map&lt;String, String&gt; usernamePasswords = new HashMap&lt;String, String&gt;();
+
+    public static void main(String[] args) {
+
+        usernamePasswords.put(&quot;foo&quot;, &quot;bar&quot;);
+        usernamePasswords.put(&quot;admin&quot;, &quot;admin&quot;);
+
+        before((request, response) -&gt; {
+            String user = request.queryParams(&quot;user&quot;);
+            String password = request.queryParams(&quot;password&quot;);
+
+            String dbPassword = usernamePasswords.get(user);
+            if (!(password != null &amp;&amp; password.equals(dbPassword))) {
+                halt(401, &quot;You are not welcome here!!!&quot;);
+            }
+        });
+
+        before(&quot;/hello&quot;, (request, response) -&gt; response.header(&quot;Foo&quot;, &quot;Set by second before filter&quot;));
+
+        get(&quot;/hello&quot;, (request, response) -&gt; &quot;Hello World!&quot;);
+
+        after(&quot;/hello&quot;, (request, response) -&gt; response.header(&quot;spark&quot;, &quot;added by after-filter&quot;));
+
+        afterAfter(&quot;/hello&quot;, (request, response) -&gt; response.header(&quot;finally&quot;, &quot;executed even if exception is throw&quot;));
+
+        afterAfter((request, response) -&gt; response.header(&quot;finally&quot;, &quot;executed after any route even if exception is throw&quot;));
+    }
+}
+</code></pre>
+<h2>Example showing how to use attributes</h2>
+<pre><code>import static spark.Spark.after;
+import static spark.Spark.get;
+
+/**
+ * Example showing the use of attributes
+ */
+public class FilterExampleAttributes {
+
+    public static void main(String[] args) {
+        get(&quot;/hi&quot;, (request, response) -&gt; {
+            request.attribute(&quot;foo&quot;, &quot;bar&quot;);
+            return null;
+        });
+
+        after(&quot;/hi&quot;, (request, response) -&gt; {
+            for (String attr : request.attributes()) {
+                System.out.println(&quot;attr: &quot; + attr);
+            }
+        });
+
+        after(&quot;/hi&quot;, (request, response) -&gt; {
+            Object foo = request.attribute(&quot;foo&quot;);
+            response.body(asXml(&quot;foo&quot;, foo));
+        });
+    }
+
+    private static String asXml(String name, Object value) {
+        return &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;&quot; + name +&quot;&gt;&quot; + value + &quot;&lt;/&quot;+ name + &quot;&gt;&quot;;
+    }
+}
+</code></pre>
+<h2>Example showing how to serve static resources</h2>
+<pre><code>import static spark.Spark.*;
+
+public class StaticResources {
+
+    public static void main(String[] args) {
+
+        // Will serve all static file are under &quot;/public&quot; in classpath if the route isn't consumed by others routes.
+        // When using Maven, the &quot;/public&quot; folder is assumed to be in &quot;/main/resources&quot;
+        staticFileLocation(&quot;/public&quot;);
+
+        get(&quot;/hello&quot;, (request, response) -&gt; &quot;Hello World!&quot;);
+    }
+}
+</code></pre>
+<h2>Example showing how to define content depending on accept type</h2>
+<pre><code>import static spark.Spark.*;
+
+public class JsonAcceptTypeExample {
+
+    public static void main(String args[]) {
+        get(&quot;/hello&quot;, &quot;application/json&quot;, (request, response) -&gt; &quot;{\&quot;message\&quot;: \&quot;Hello World\&quot;}&quot;);
+    }
+} 
+</code></pre>
+<h2>Example showing how to render a view from a template</h2>
+<p>Note that we are using <code>ModelAndView</code> class for setting the object and name/location of template.</p>
+<p>First of all we define a class which handles and renders output depending on template engine used. In this case <a href="https://freemarker.apache.org">FreeMarker</a>.</p>
+<pre><code>public class FreeMarkerTemplateEngine extends TemplateEngine {
+
+    private Configuration configuration;
+
+    protected FreeMarkerTemplateEngine() {
+        this.configuration = createFreemarkerConfiguration();
+    }
+
+    @Override
+    public String render(ModelAndView modelAndView) {
+        try {
+            StringWriter stringWriter = new StringWriter();
+
+            Template template = configuration.getTemplate(modelAndView.getViewName());
+            template.process(modelAndView.getModel(), stringWriter);
+
+            return stringWriter.toString();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        } catch (TemplateException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    private Configuration createFreemarkerConfiguration() {
+        Configuration retVal = new Configuration();
+        retVal.setClassForTemplateLoading(FreeMarkerTemplateEngine.class, &quot;freemarker&quot;);
+        return retVal;
+    }
+}
+</code></pre>
+<p>Then we can use it to generate our content. Note how we are setting model data and view name. Because we are using FreeMarker,
+in this case a <code>Map</code> and the name of the template is required:</p>
+<pre><code>public class FreeMarkerExample {
+
+    public static void main(String args[]) {
+
+        get(&quot;/hello&quot;, (request, response) -&gt; {
+            Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();
+            attributes.put(&quot;message&quot;, &quot;Hello FreeMarker World&quot;);
+
+            // The hello.ftl file is located in directory:
+            // src/test/resources/spark/examples/templateview/freemarker
+            return modelAndView(attributes, &quot;hello.ftl&quot;);
+        }, new FreeMarkerTemplateEngine());
+    }
+}
+</code></pre>
+<h2>Example of using Transformer</h2>
+<p>First of all we define the transformer class, in this case a class which transforms an object to JSON format using gson API.</p>
+<pre><code>public class JsonTransformer implements ResponseTransformer {
+
+    private Gson gson = new Gson();
+
+    @Override
+    public String render(Object model) {
+        return gson.toJson(model);
+    }
+}
+</code></pre>
+<p>And then the code which return a simple POJO to be transformed to JSON:</p>
+<pre><code>public class TransformerExample {
+
+    public static void main(String args[]) {
+        get(&quot;/hello&quot;, &quot;application/json&quot;, (request, response) -&gt; {
+            return new MyMessage(&quot;Hello World&quot;);
+        }, new JsonTransformer());
+    }
+}
+</code></pre>
+</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
