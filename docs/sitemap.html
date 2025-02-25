@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Request, Response</title>
+  <title>Sitemap</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="site.css">
@@ -102,43 +102,21 @@
         
       </div>
       <div class="col">
-<h1>Request, Response</h1>
-<h2>Request</h2>
-<p>The <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Request</a>
-object retrieves the information sent with the HTTP request.</p>
-<h3>Parameters</h3>
-<p>Use <code>req.params(name)</code> to access a path parameter.</p>
-<pre><code>Spark.get(&quot;/book/:id&quot;, (req, res) -&gt; &quot;received ID &quot; + req.params(&quot;id&quot;));
-</code></pre>
-<p>Use <code>req.params()</code> for getting all parameters as Map.</p>
-<h3>Wildcards</h3>
-<p>Use <code>req.splat()</code> to access the wildcard path parameters.</p>
-<h3>Sent message</h3>
-<p>A message sent using e.g. the POST verb can be retrieved using <code>req.body()</code> (or <code>req.bodyAsBytes()</code>).</p>
-<h3>Query parameters and form data</h3>
-<p>Use <code>req.queryParams(name)</code> to access a query parameter that is part of the URL:</p>
-<p><code>http://server:4567/path?name=value&amp;name2=value2</code></p>
-<pre><code>req.queryParams(&quot;name&quot;);  // = &quot;value&quot;
-req.queryParams(&quot;name2&quot;); // = &quot;value2&quot;
-</code></pre>
-<p><code>queryParams(name)</code> is also used for form data sent e.g. by a POST message.</p>
-<p>See <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Javadoc</a> for more query... methods.</p>
-<h3>Cookies</h3>
-<p>Use <code>req.cookies()</code> or <code>req.cookie(name)</code> to read cookies. The Response object has methods for writing cookies.</p>
-<h3>Session</h3>
-<p>Use <code>req.session([create])</code> to read/write session attributes.</p>
-<h3>Other methods</h3>
-<p>See <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Request.html">Javadoc</a> for other methods, especially
-for getting information about the request.</p>
-<h2>Response</h2>
-<p>The <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Response.html">Response</a>
-object receives the response data.</p>
-<p>Using the <code>res.redirect(path)</code> method, the client (browser) can be redirected to a new URL. For creating route aliases you
-can use the <a href="https://javadoc.io/static/io.github.sparkjavateam/spark-core/2.9.4/spark/Redirect.html">Redirect API</a>
-using <code>import static spark.Spark.redirect</code>. Example: <code>redirect.get(&quot;/old-path&quot;, &quot;/v2/new-path&quot;);</code></p>
-<p>Use <code>res.status(int)</code> for setting the response HTTP status code (<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a>),
-e.g. <code>req.status(401);</code></p>
-<p>Use <code>res.type(mimeType)</code> for setting the content type of the response.</p>
+<h1>Sitemap</h1>
+<p><em><a href="sitemap.html">This page</a> is particularly necessary at the moment because the table of contents is not visible in mobile mode
+and therefore the pages may not be accessible.</em></p>
+<p><a href="index.html">Spark homepage</a></p>
+<p><a href="download.html">Download</a></p>
+<p><a href="release-notes.html">Release Notes</a></p>
+<p><a href="contribute.html">Contribute</a></p>
+<p><a href="project-rules.html">Project rules</a></p>
+<p><a href="roadmap.html">Roadmap</a></p>
+<p><a href="start.html">Start and stop</a></p>
+<p><a href="routes.html">Routes</a></p>
+<p><a href="request.html">Request, Response</a></p>
+<p><a href="more.html">More about routes</a></p>
+<p><a href="upload.html">Upload and download</a></p>
+<p><a href="examples.html">Examples</a></p>
 </div>
     </div>
   </div>

@@ -37,3 +37,6 @@ Then a Github action is triggered to publish these pages to the Github Pages bas
 
 Update file 'toc' if you have added a Markdown file. The first expression is the title in quotes, then a space and after that the
 filename without an extension.
+
+### Sitegen TO-DO
+- Java syntax highlighting
