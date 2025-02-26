@@ -47,7 +47,10 @@ public class WebSocketServletContextHandlerFactory {
         if (webSocketHandlers != null) {
             try {
                 webSocketServletContextHandler = new ServletContextHandler(null, "/", true, false);
-                WebSocketUpgradeFilter webSocketUpgradeFilter = WebSocketUpgradeFilter.configure(webSocketServletContextHandler);
+                
+                // TODO Testcase spark.GenericIntegrationTest.testWebSocketConversation() would fail if configure() is used here.
+                WebSocketUpgradeFilter webSocketUpgradeFilter = WebSocketUpgradeFilter.configureContext(webSocketServletContextHandler);
+                
                 if (webSocketIdleTimeoutMillis.isPresent()) {
                     webSocketUpgradeFilter.getFactory().getPolicy().setIdleTimeout(webSocketIdleTimeoutMillis.get());
                 }
