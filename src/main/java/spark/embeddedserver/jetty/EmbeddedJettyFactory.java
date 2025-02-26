@@ -32,6 +32,7 @@ public class EmbeddedJettyFactory implements EmbeddedServerFactory {
     private final JettyServerFactory serverFactory;
     private ThreadPool threadPool;
     private boolean httpOnly = true;
+    private String cookieName;
 
     public EmbeddedJettyFactory() {
         this.serverFactory = new JettyServer();
@@ -41,6 +42,7 @@ public class EmbeddedJettyFactory implements EmbeddedServerFactory {
         this.serverFactory = serverFactory;
     }
 
+    @Override
     public EmbeddedServer create(Routes routeMatcher,
                                  StaticFilesConfiguration staticFilesConfiguration,
                                  ExceptionMapper exceptionMapper,
@@ -50,6 +52,9 @@ public class EmbeddedJettyFactory implements EmbeddedServerFactory {
 
         JettyHandler handler = new JettyHandler(matcherFilter);
         handler.getSessionCookieConfig().setHttpOnly(httpOnly);
+        if (cookieName != null) {
+            handler.getSessionCookieConfig().setName(cookieName);    
+        }
         return new EmbeddedJettyServer(serverFactory, handler).withThreadPool(threadPool);
     }
 
@@ -67,6 +72,11 @@ public class EmbeddedJettyFactory implements EmbeddedServerFactory {
 
     public EmbeddedJettyFactory withHttpOnly(boolean httpOnly) {
         this.httpOnly = httpOnly;
+        return this;
+    }
+    
+    public EmbeddedJettyFactory withCookieName(String name) {
+        this.cookieName = name;
         return this;
     }
 }

@@ -59,6 +59,7 @@ public abstract class ResponseTransformerRouteImpl extends RouteImpl {
      * @param model object used to render output.
      * @return message that it is sent to client.
      */
+    @Override
     public abstract Object render(Object model) throws Exception;
 
 }
