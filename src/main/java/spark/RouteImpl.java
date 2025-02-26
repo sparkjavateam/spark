@@ -114,6 +114,7 @@ public abstract class RouteImpl implements Route, Wrapper {
      * @return The content to be set in the response
      * @throws java.lang.Exception when handle fails
      */
+    @Override
     public abstract Object handle(Request request, Response response) throws Exception;
 
     /**

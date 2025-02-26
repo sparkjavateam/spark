@@ -47,6 +47,7 @@ final class RequestWrapper extends Request {
         return delegate;
     }
 
+    @Override
     public void changeMatch(RouteMatch match) {
         Access.changeMatch(delegate, match);
     }

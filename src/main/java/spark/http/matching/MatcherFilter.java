@@ -55,7 +55,6 @@ public class MatcherFilter implements Filter {
     private SerializerChain serializerChain;
     private ExceptionMapper exceptionMapper;
 
-    private boolean externalContainer;
     private boolean hasOtherHandlers;
 
     /**
@@ -63,7 +62,7 @@ public class MatcherFilter implements Filter {
      *
      * @param routeMatcher      The route matcher
      * @param staticFiles       The static files configuration object
-     * @param externalContainer Tells the filter that Spark is run in an external web container.
+     * @param externalContainer (unused) Tells the filter that Spark is run in an external web container.
      *                          If true, chain.doFilter will be invoked if request is not consumed by Spark.
      * @param hasOtherHandlers  If true, do nothing if request is not consumed by Spark in order to let others handlers process the request.
      */
@@ -76,7 +75,6 @@ public class MatcherFilter implements Filter {
         this.routeMatcher = routeMatcher;
         this.staticFiles = staticFiles;
         this.exceptionMapper = exceptionMapper;
-        this.externalContainer = externalContainer;
         this.hasOtherHandlers = hasOtherHandlers;
         this.serializerChain = new SerializerChain();
     }

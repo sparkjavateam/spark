@@ -42,6 +42,7 @@ final class GeneralError {
                        ExceptionMapper exceptionMapper,
                        Exception e) {
 
+        @SuppressWarnings("rawtypes")
         ExceptionHandlerImpl handler = exceptionMapper.getHandler(e);
 
         if (handler != null) {
