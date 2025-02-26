@@ -13,7 +13,14 @@ public class Whitebox {
 			field.setAccessible(true);
 			field.set(object, value);
 		} catch (Exception e) {
-			throw new RuntimeException("Error setting " + object.getClass().getName() + " field " + fieldname + " value", e);
+			try {
+				// try superclass
+				Field field = object.getClass().getSuperclass().getDeclaredField(fieldname);
+				field.setAccessible(true);
+				field.set(object, value);
+			} catch (Exception e1) {
+				throw new RuntimeException("Error setting " + object.getClass().getName() + " field " + fieldname + " value", e1);
+			}
 		}
 	}
 
@@ -23,7 +30,14 @@ public class Whitebox {
 			field.setAccessible(true);
 			return field.get(object);
 		} catch (Exception e) {
-			throw new RuntimeException("Error getting " + object.getClass().getName() + " field " + fieldname + " value", e);
+			try {
+				// try superclass
+				Field field = object.getClass().getSuperclass().getDeclaredField(fieldname);
+				field.setAccessible(true);
+				return field.get(object);
+			} catch (Exception e1) {
+				throw new RuntimeException("Error getting " + object.getClass().getName() + " field " + fieldname + " value", e1);
+			}
 		}
 	}
 }
