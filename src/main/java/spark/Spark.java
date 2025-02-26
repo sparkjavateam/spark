@@ -16,12 +16,12 @@
  */
 package spark;
 
-import spark.routematch.RouteMatch;
+import static spark.Service.ignite;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-import static spark.Service.ignite;
+import spark.routematch.RouteMatch;
 
 /**
  * The main building block of a Spark application is a set of routes.
@@ -64,7 +64,7 @@ public class Spark {
     public static final Redirect redirect = getInstance().redirect;
 
     /**
-     * Statically import this for static files utility functionality, see {@link spark.Service.StaticFiles}
+     * Statically import this for static files utility functionality, see {@link Service.StaticFiles}
      */
     public static final Service.StaticFiles staticFiles = getInstance().staticFiles;
 
@@ -1178,7 +1178,7 @@ public class Spark {
      * Sets the folder in classpath serving static files. Observe: this method
      * must be called before all other methods.
      * -
-     * Note: contemplate changing tonew static files paradigm {@link spark.Service.StaticFiles}
+     * Note: contemplate changing tonew static files paradigm {@link Service.StaticFiles}
      *
      * @param folder the folder in classpath.
      */
@@ -1190,7 +1190,7 @@ public class Spark {
      * Sets the external folder serving static files. <b>Observe: this method
      * must be called before all other methods.</b>
      * -
-     * Note: contemplate use of new static files paradigm {@link spark.Service.StaticFiles}
+     * Note: contemplate use of new static files paradigm {@link Service.StaticFiles}
      *
      * @param externalFolder the external folder serving static files.
      */
