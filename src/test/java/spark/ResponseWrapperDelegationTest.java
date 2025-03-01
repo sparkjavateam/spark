@@ -66,6 +66,6 @@ public class ResponseWrapperDelegationTest {
         UrlResponse response = testUtil.get("/json");
         Assert.assertEquals(200, response.status);
         Assert.assertEquals("{\"status\": \"ok\"}", response.body);
-        Assert.assertEquals("text/plain", response.headers.get("Content-Type"));
+        Assert.assertEquals("text/plain;charset=utf-8", response.headers.get("Content-Type"));
     }
 }
