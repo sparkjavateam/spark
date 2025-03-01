@@ -32,9 +32,10 @@
 
     <properties>
         <gpg.skip>false</gpg.skip>
-        <java.version>1.8</java.version>
-        <jetty.version>9.4.48.v20220622</jetty.version>
+        <java.version>17</java.version>
+        <jetty.version>10.0.15</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <powermock.version>2.0.9</powermock.version>
         <mockito.version>5.15.2</mockito.version>
     </properties>
 
@@ -68,7 +69,7 @@
 
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-server</artifactId>
+            <artifactId>websocket-jetty-server</artifactId>
             <version>${jetty.version}</version>
         </dependency>
         <dependency>
@@ -110,7 +111,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-client</artifactId>
+            <artifactId>websocket-jetty-client</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>
@@ -154,6 +155,12 @@
                 <configuration>
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.time=ALL-UNNAMED
+                        --add-opens java.base/java.time.format=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
