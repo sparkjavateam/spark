@@ -2,4 +2,4 @@ jdk:
   - openjdk17
 install:
   - sdk install maven 3.8.7
-  - mvn install -DskipTests -Drevision=${GIT_TAG} -Dgpg.skip=true
+  - mvn install -DskipTests -Drevision=${VERSION} -Dgpg.skip=true
