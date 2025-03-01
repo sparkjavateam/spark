@@ -4,10 +4,10 @@
     <groupId>io.github.sparkjavateam</groupId>
     <artifactId>spark-core</artifactId>
     <packaging>bundle</packaging>
-    <version>2.9.4</version>
+    <version>${revision}</version><!-- see .mvn/maven.config -->
     <name>Spark</name>
-    <description>A micro framework for creating web applications in Kotlin and Java 8 with minimal effort</description>
-    <url>http://www.sparkjava.com</url>
+    <description>A micro framework for creating web applications in Java with minimal effort</description>
+    <url>https://sparkjavateam.github.io/spark</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -31,6 +31,7 @@
     </developers>
 
     <properties>
+        <gpg.skip>false</gpg.skip>
         <java.version>1.8</java.version>
         <jetty.version>9.4.48.v20220622</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -221,4 +222,11 @@
             </plugin>
         </plugins>
     </build>
+    <organization>
+    	<url>https://sparkjavateam.github.io/spark</url>
+    	<name>sparkjavateam</name>
+    </organization>
+    <ciManagement>
+    	<system>Github Actions</system>
+    </ciManagement>
 </project>

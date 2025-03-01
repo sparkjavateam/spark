@@ -1,5 +1,7 @@
+env:
+  - GPG_TTY=/dev/null
 jdk:
   - openjdk17
 install:
   - sdk install maven 3.8.7
-  - mvn install -DskipTests
+  - mvn install -DskipTests -Drevision=${GIT_TAG} -Dgpg.skip=true
