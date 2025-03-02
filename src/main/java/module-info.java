@@ -4,6 +4,7 @@ module spark {
     exports spark.serialization;
     exports spark.embeddedserver;
     exports spark.embeddedserver.jetty;
+    exports spark.embeddedserver.jetty.websocket;
     exports spark.route;
     exports spark.routematch;
     exports spark.servlet;

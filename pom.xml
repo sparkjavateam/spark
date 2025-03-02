@@ -159,6 +159,7 @@
                         --add-opens java.base/java.time=ALL-UNNAMED
                         --add-opens java.base/java.time.format=ALL-UNNAMED
                         --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens org.eclipse.jetty.websocket.core.common/org.eclipse.jetty.websocket.core.internal=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
