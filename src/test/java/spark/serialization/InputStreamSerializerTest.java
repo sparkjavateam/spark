@@ -15,7 +15,7 @@ public class InputStreamSerializerTest {
         ByteArrayInputStream input = new ByteArrayInputStream(bytes);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        serializer.process(output, input);
+        serializer.process(output, input, null, null);
 
         Assert.assertArrayEquals(bytes, output.toByteArray());
     }
@@ -25,7 +25,7 @@ public class InputStreamSerializerTest {
         MockInputStream input = new MockInputStream(new ByteArrayInputStream(new byte[0]));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        serializer.process(output, input);
+        serializer.process(output, input, null, null);
 
         Assert.assertTrue("Expected stream to be closed", input.closed);
     }

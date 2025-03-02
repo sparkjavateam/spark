@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+import spark.Request;
+import spark.Response;
+
 /**
  * Bytes serializer.
  *
@@ -33,7 +36,7 @@ class BytesSerializer extends Serializer {
     }
 
     @Override
-    public void process(OutputStream outputStream, Object element)
+    public void process(OutputStream outputStream, Object element, Request request, Response response)
             throws IOException {
         byte[] bytes = null;
         if (element instanceof byte[]) {

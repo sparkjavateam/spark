@@ -16,7 +16,11 @@
  */
 package spark;
 
+import spark.embeddedserver.jetty.EmbeddedJettyServer;
+import spark.embeddedserver.jetty.JettyHandler;
+import spark.http.matching.MatcherFilter;
 import spark.routematch.RouteMatch;
+import spark.serialization.SerializerChain;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -1328,5 +1332,10 @@ public class Spark {
         return getInstance().activeThreadCount();
     }
 
-
+    public static SerializerChain getSerializerChain(){
+        EmbeddedJettyServer ejs=(EmbeddedJettyServer) getInstance().server;
+        JettyHandler handler=(JettyHandler) ejs.getHandler();
+        MatcherFilter filter=(MatcherFilter) handler.getFilter();
+        return filter.getSerializerChain();
+    }
 }
