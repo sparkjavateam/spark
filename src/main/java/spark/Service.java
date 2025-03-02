@@ -26,14 +26,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import spark.embeddedserver.EmbeddedServer;
 import spark.embeddedserver.EmbeddedServers;
+import spark.embeddedserver.jetty.EmbeddedJettyServer;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerClassWrapper;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerInstanceWrapper;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerWrapper;
@@ -73,6 +77,7 @@ public final class Service extends Routable {
     protected int minThreads = -1;
     protected int threadIdleTimeoutMillis = -1;
     protected Optional<Long> webSocketIdleTimeoutMillis = Optional.empty();
+    private boolean useVirtualThreads;
 
     protected EmbeddedServer server;
     protected Deque<String> pathDeque = new ArrayDeque<>();
@@ -630,6 +635,13 @@ public final class Service extends Routable {
                     server.configureWebSockets(webSocketHandlers, webSocketIdleTimeoutMillis);
                     server.trustForwardHeaders(trustForwardHeaders);
 
+                    if(useVirtualThreads && server instanceof EmbeddedJettyServer ejs && Runtime.version().feature() >= 19) {
+                        QueuedThreadPool pool = new QueuedThreadPool();
+                        //noinspection Since15
+                        pool.setVirtualThreadsExecutor(Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("ServerThread-", 0).factory()));
+                        ejs.withThreadPool(pool);
+                    }
+
                     port = server.ignite(
                             ipAddress,
                             port,
@@ -781,6 +793,10 @@ public final class Service extends Routable {
             throwBeforeRouteMappingException();
         }
         this.initExceptionHandler = initExceptionHandler;
+    }
+
+    public void setUseVirtualThreads(boolean useVirtualThreads) {
+        this.useVirtualThreads=useVirtualThreads;
     }
 
     /**
