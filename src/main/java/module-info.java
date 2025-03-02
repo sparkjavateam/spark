@@ -6,6 +6,7 @@ module spark {
     exports spark.embeddedserver.jetty;
     exports spark.route;
     exports spark.routematch;
+    exports spark.servlet;
 
     requires java.sql;
 
