@@ -43,13 +43,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>2.0.16</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+            <version>2.0.16</version>
             <scope>test</scope>
         </dependency>
 
@@ -159,6 +159,7 @@
                         --add-opens java.base/java.time=ALL-UNNAMED
                         --add-opens java.base/java.time.format=ALL-UNNAMED
                         --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens org.eclipse.jetty.websocket.core.common/org.eclipse.jetty.websocket.core.internal=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
