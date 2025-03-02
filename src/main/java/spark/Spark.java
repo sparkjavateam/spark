@@ -22,6 +22,7 @@ import spark.http.matching.MatcherFilter;
 import spark.routematch.RouteMatch;
 import spark.serialization.SerializerChain;
 
+import java.util.EventListener;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -1337,5 +1338,10 @@ public class Spark {
         JettyHandler handler=(JettyHandler) ejs.getHandler();
         MatcherFilter filter=(MatcherFilter) handler.getFilter();
         return filter.getSerializerChain();
+    }
+
+    public static void addServletEventListener(EventListener listener) {
+        EmbeddedJettyServer ejs = (EmbeddedJettyServer) getInstance().server;
+        ejs.getHandler().addEventListener(listener);
     }
 }
