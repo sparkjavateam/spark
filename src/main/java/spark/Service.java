@@ -19,6 +19,8 @@ package spark;
 import static java.util.Objects.requireNonNull;
 import static spark.globalstate.ServletFlag.isRunningFromServlet;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -26,14 +28,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import spark.embeddedserver.EmbeddedServer;
 import spark.embeddedserver.EmbeddedServers;
+import spark.embeddedserver.jetty.EmbeddedJettyServer;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerClassWrapper;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerInstanceWrapper;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerWrapper;
@@ -73,6 +80,7 @@ public final class Service extends Routable {
     protected int minThreads = -1;
     protected int threadIdleTimeoutMillis = -1;
     protected Optional<Long> webSocketIdleTimeoutMillis = Optional.empty();
+    private boolean useVirtualThreads;
 
     protected EmbeddedServer server;
     protected Deque<String> pathDeque = new ArrayDeque<>();
@@ -630,6 +638,23 @@ public final class Service extends Routable {
                     server.configureWebSockets(webSocketHandlers, webSocketIdleTimeoutMillis);
                     server.trustForwardHeaders(trustForwardHeaders);
 
+                    if(useVirtualThreads && server instanceof EmbeddedJettyServer ejs && Runtime.version().feature() >= 19) {
+                        QueuedThreadPool pool = new QueuedThreadPool();
+                        // JDK 17-compatible equivalent of pool.setVirtualThreadsExecutor(Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("ServerThread-", 0).factory()));
+                        // Remove when Java 17 compatibility is no longer required
+                        try {
+                            Method newThreadPerTaskExecutor = Executors.class.getMethod("newThreadPerTaskExecutor", ThreadFactory.class);
+                            Object builder = Thread.class.getMethod("ofVirtual").invoke(null);
+                            Class<?> threadBuilder = builder.getClass();
+                            threadBuilder.getMethod("name", String.class, long.class).invoke(threadBuilder, "ServerThread-", 0);
+                            ThreadFactory factory = (ThreadFactory) threadBuilder.getMethod("factory").invoke(builder);
+                            pool.setVirtualThreadsExecutor((Executor) newThreadPerTaskExecutor.invoke(null, factory));
+                        } catch (InvocationTargetException x) {
+                            throw new RuntimeException(x);
+                        }
+                        ejs.withThreadPool(pool);
+                    }
+
                     port = server.ignite(
                             ipAddress,
                             port,
@@ -781,6 +806,10 @@ public final class Service extends Routable {
             throwBeforeRouteMappingException();
         }
         this.initExceptionHandler = initExceptionHandler;
+    }
+
+    public void setUseVirtualThreads(boolean useVirtualThreads) {
+        this.useVirtualThreads=useVirtualThreads;
     }
 
     /**
