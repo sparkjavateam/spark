@@ -19,6 +19,8 @@ package spark;
 import static java.util.Objects.requireNonNull;
 import static spark.globalstate.ServletFlag.isRunningFromServlet;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.function.Consumer;
@@ -637,8 +640,18 @@ public final class Service extends Routable {
 
                     if(useVirtualThreads && server instanceof EmbeddedJettyServer ejs && Runtime.version().feature() >= 19) {
                         QueuedThreadPool pool = new QueuedThreadPool();
-                        //noinspection Since15
-                        pool.setVirtualThreadsExecutor(Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("ServerThread-", 0).factory()));
+                        // JDK 17-compatible equivalent of pool.setVirtualThreadsExecutor(Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("ServerThread-", 0).factory()));
+                        // Remove when Java 17 compatibility is no longer required
+                        try {
+                            Method newThreadPerTaskExecutor = Executors.class.getMethod("newThreadPerTaskExecutor", ThreadFactory.class);
+                            Object builder = Thread.class.getMethod("ofVirtual").invoke(null);
+                            Class<?> threadBuilder = builder.getClass();
+                            threadBuilder.getMethod("name", String.class, long.class).invoke(threadBuilder, "ServerThread-", 0);
+                            ThreadFactory factory = (ThreadFactory) threadBuilder.getMethod("factory").invoke(builder);
+                            pool.setVirtualThreadsExecutor((Executor) newThreadPerTaskExecutor.invoke(null, factory));
+                        } catch (InvocationTargetException x) {
+                            throw new RuntimeException(x);
+                        }
                         ejs.withThreadPool(pool);
                     }
 
