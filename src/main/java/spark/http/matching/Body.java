@@ -30,7 +30,7 @@ import spark.serialization.SerializerChain;
 /**
  * Represents the 'body'
  */
-final class Body {
+public final class Body {
 
     private Object content;
 
