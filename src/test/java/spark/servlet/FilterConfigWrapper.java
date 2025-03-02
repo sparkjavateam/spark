@@ -2,8 +2,8 @@ package spark.servlet;
 
 import java.util.Enumeration;
 
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletContext;
 
 
 public class FilterConfigWrapper implements FilterConfig {
@@ -16,7 +16,7 @@ public class FilterConfigWrapper implements FilterConfig {
     
     /**
      * @return
-     * @see javax.servlet.FilterConfig#getFilterName()
+     * @see jakarta.servlet.FilterConfig#getFilterName()
      */
     @Override
     public String getFilterName() {
@@ -26,7 +26,7 @@ public class FilterConfigWrapper implements FilterConfig {
     /**
      * @param name
      * @return
-     * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
+     * @see jakarta.servlet.FilterConfig#getInitParameter(java.lang.String)
      */
     @Override
     public String getInitParameter(String name) {
@@ -38,7 +38,7 @@ public class FilterConfigWrapper implements FilterConfig {
 
     /**
      * @return
-     * @see javax.servlet.FilterConfig#getInitParameterNames()
+     * @see jakarta.servlet.FilterConfig#getInitParameterNames()
      */
     @Override
     public Enumeration<String> getInitParameterNames() {
@@ -47,7 +47,7 @@ public class FilterConfigWrapper implements FilterConfig {
 
     /**
      * @return
-     * @see javax.servlet.FilterConfig#getServletContext()
+     * @see jakarta.servlet.FilterConfig#getServletContext()
      */
     @Override
     public ServletContext getServletContext() {

@@ -8,12 +8,12 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Date;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class ResponseTest {
 
@@ -34,7 +34,7 @@ public class ResponseTest {
         HttpServletResponse returnResponse = (HttpServletResponse) Whitebox.getInternalState(response, "response");
         assertSame("Should be the same the HttpServletResponse object for httpServletResponse and returnResponse", httpServletResponse, returnResponse);
     }
-    
+
     @Test
     public void testSetStatus() {
         final int finalStatusCode = HttpServletResponse.SC_OK;
