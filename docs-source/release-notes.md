@@ -1,5 +1,20 @@
 # Release Notes
 
+## 2.10.0
+
+This is the first release by sparkjavateam.
+
+- [New website](https://sparkjavateam.github.io/spark)
+- #2: Moved [examples](https://sparkjavateam.github.io/spark/examples.html) from readme to website
+- #3: Set cookie name. If multiple webapps run on one host, they have the same session ID cookie. Use this code to give each app a unique cookie name: `EmbeddedServers.add(EmbeddedServers.Identifiers.JETTY, new EmbeddedJettyFactory().withCookieName("SESSIONID_" + appName));`
+- #6: Update Jetty version. **Minimum Java version is now 17.** Package changes from javax.servlet to jakarta.servlet.
+- #7: Expose SerializerChain
+- #8: Allow setting servlet event listeners
+- #9: **Virtual Threads** (You need Java >= 19 if you want to use this feature.)
+- #10: Java Module support
+- #11: Fix Spark error pages when there are websocket routes
+- #12: Update some versions: **Jetty 11.0.24**, slf4j 2.0.17, ...
+
 ## 2.9.4
 
 The release 2.9.4 is identical to the last release 2.9.4 by Per Wendel.
