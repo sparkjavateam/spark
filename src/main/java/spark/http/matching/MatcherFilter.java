@@ -26,7 +26,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import spark.CustomErrorPages;
 import spark.ExceptionMapper;
 import spark.HaltException;
@@ -209,7 +208,7 @@ public class MatcherFilter implements Filter {
     public void destroy() {
     }
 
-    public SerializerChain getSerializerChain(){
+    public SerializerChain getSerializerChain() {
         return serializerChain;
     }
 }

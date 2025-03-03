@@ -28,7 +28,6 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.thread.ThreadPool;
 import org.slf4j.Logger;
@@ -46,7 +45,6 @@ import spark.ssl.SslStores;
  * @author Per Wendel
  */
 public class EmbeddedJettyServer implements EmbeddedServer {
-
     private static final int SPARK_DEFAULT_PORT = 4567;
     private static final String NAME = "Spark";
 
@@ -203,7 +201,7 @@ public class EmbeddedJettyServer implements EmbeddedServer {
         return this;
     }
 
-    public Handler getHandler(){
+    public Handler getHandler() {
         return handler;
     }
 }

@@ -21,17 +21,15 @@ import java.io.OutputStream;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import spark.Request;
 import spark.Response;
-import spark.utils.GzipUtils;
 import spark.serialization.SerializerChain;
+import spark.utils.GzipUtils;
 
 /**
  * Represents the 'body'
  */
 public final class Body {
-
     private Object content;
 
     public static Body create() {
@@ -39,7 +37,6 @@ public final class Body {
     }
 
     private Body() {
-
     }
 
     public boolean notSet() {
@@ -77,6 +74,4 @@ public final class Body {
             responseStream.close(); // needed for GZIP
         }
     }
-
-
 }

@@ -18,13 +18,13 @@ package spark.embeddedserver.jetty;
 
 import java.io.IOException;
 
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.session.SessionHandler;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.session.SessionHandler;
 
 /**
  * Simple Jetty Handler
@@ -32,7 +32,6 @@ import org.eclipse.jetty.server.session.SessionHandler;
  * @author Per Wendel
  */
 public class JettyHandler extends SessionHandler {
-
     private Filter filter;
 
     public JettyHandler(Filter filter) {
@@ -54,10 +53,9 @@ public class JettyHandler extends SessionHandler {
         } else {
             baseRequest.setHandled(true);
         }
-
     }
 
-    public Filter getFilter(){
+    public Filter getFilter() {
         return filter;
     }
 }

@@ -638,7 +638,7 @@ public final class Service extends Routable {
                     server.configureWebSockets(webSocketHandlers, webSocketIdleTimeoutMillis);
                     server.trustForwardHeaders(trustForwardHeaders);
 
-                    if(useVirtualThreads && server instanceof EmbeddedJettyServer ejs && Runtime.version().feature() >= 19) {
+                    if (useVirtualThreads && server instanceof EmbeddedJettyServer ejs && Runtime.version().feature() >= 19) {
                         QueuedThreadPool pool = new QueuedThreadPool();
                         // JDK 17-compatible equivalent of pool.setVirtualThreadsExecutor(Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("ServerThread-", 0).factory()));
                         // Remove when Java 17 compatibility is no longer required

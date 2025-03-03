@@ -24,8 +24,6 @@ import spark.Request;
 import spark.Response;
 
 /**
- * Bytes serializer.
- *
  * @author alex
  */
 class BytesSerializer extends Serializer {
@@ -39,12 +37,11 @@ class BytesSerializer extends Serializer {
     public void process(OutputStream outputStream, Object element, Request request, Response response)
             throws IOException {
         byte[] bytes = null;
-        if (element instanceof byte[]) {
-            bytes = (byte[]) element;
-        } else if (element instanceof ByteBuffer){
-            bytes = ((ByteBuffer) element).array();
+        if (element instanceof byte[] el) {
+            bytes = el;
+        } else if (element instanceof ByteBuffer bb) {
+            bytes = bb.array();
         }
         outputStream.write(bytes);
     }
-
 }
