@@ -28,6 +28,7 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.thread.ThreadPool;
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import spark.embeddedserver.EmbeddedServer;
 import spark.embeddedserver.jetty.websocket.WebSocketHandlerWrapper;
 import spark.embeddedserver.jetty.websocket.WebSocketServletContextHandlerFactory;
+import spark.http.matching.MatcherFilter;
 import spark.ssl.SslStores;
 
 /**
@@ -135,8 +137,10 @@ public class EmbeddedJettyServer implements EmbeddedServer {
             handlersInList.add(handler);
 
             // WebSocket handler must be the last one
-            if (webSocketServletContextHandler != null) {
-                handlersInList.add(webSocketServletContextHandler);
+            handlersInList.add(webSocketServletContextHandler);
+
+            if (handler instanceof JettyHandler jh && jh.getFilter() instanceof MatcherFilter matcherFilter) {
+                webSocketServletContextHandler.setErrorHandler(new JettyErrorHandler(matcherFilter));
             }
 
             HandlerList handlers = new HandlerList();
