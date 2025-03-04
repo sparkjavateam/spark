@@ -3,17 +3,20 @@
 ## 2.10.0
 
 This is the first release by sparkjavateam.
+Highlights are **Java 17**, **Jetty 11**, virtual threads and a new website.
+Updating to Jetty 12 would be a too big change for this release.
 
-- [New website](https://sparkjavateam.github.io/spark)
-- #2: Moved [examples](https://sparkjavateam.github.io/spark/examples.html) from readme to website
+- #1: [New website](https://sparkjavateam.github.io/spark), Powermock removed, testcases removed: StaticFilesFromArchiveTest, WebSocketServletContextHandlerFactoryTest, ServletFlagTest
+- #2: Moved [examples](https://sparkjavateam.github.io/spark/examples.html) from README.md to website
 - #3: Set cookie name. If multiple webapps run on one host, they have the same session ID cookie. Use this code to give each app a unique cookie name: `EmbeddedServers.add(EmbeddedServers.Identifiers.JETTY, new EmbeddedJettyFactory().withCookieName("SESSIONID_" + appName));`
-- #6: Update Jetty version. **Minimum Java version is now 17.** Package changes from javax.servlet to jakarta.servlet.
+- #6: Update Jetty version. Minimum Java version is now 17. Package changes from javax.servlet to jakarta.servlet.
 - #7: Expose SerializerChain
 - #8: Allow setting servlet event listeners
-- #9: **Virtual Threads** (You need Java >= 19 if you want to use this feature.)
+- #9: Virtual threads (You need Java >= 19 if you want to use this feature.)
 - #10: Java Module support
 - #11: Fix Spark error pages when there are websocket routes
-- #12: Update some versions: **Jetty 11.0.24**, slf4j 2.0.17, ...
+- #12: Update some versions: Jetty 11.0.24, slf4j 2.0.17, ...
+- #14: Set response body in after after
 
 ## 2.9.4
 
