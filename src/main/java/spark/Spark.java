@@ -16,19 +16,17 @@
  */
 package spark;
 
-import org.eclipse.jetty.util.VirtualThreads;
+import static spark.Service.ignite;
+
+import java.util.EventListener;
+import java.util.List;
+import java.util.function.Consumer;
 
 import spark.embeddedserver.jetty.EmbeddedJettyServer;
 import spark.embeddedserver.jetty.JettyHandler;
 import spark.http.matching.MatcherFilter;
 import spark.routematch.RouteMatch;
 import spark.serialization.SerializerChain;
-
-import java.util.EventListener;
-import java.util.List;
-import java.util.function.Consumer;
-
-import static spark.Service.ignite;
 
 /**
  * The main building block of a Spark application is a set of routes. A route is
@@ -1335,11 +1333,11 @@ public class Spark {
         return getInstance().activeThreadCount();
     }
 
-    public static SerializerChain getSerializerChain(){
-        EmbeddedJettyServer ejs=(EmbeddedJettyServer) getInstance().server;
-        JettyHandler handler=(JettyHandler) ejs.getHandler();
-        MatcherFilter filter=(MatcherFilter) handler.getFilter();
-        return filter.getSerializerChain();
+    public static SerializerChain getSerializerChain() {
+		EmbeddedJettyServer ejs = (EmbeddedJettyServer) getInstance().server;
+		JettyHandler handler = (JettyHandler) ejs.getHandler();
+		MatcherFilter filter = (MatcherFilter) handler.getFilter();
+		return filter.getSerializerChain();
     }
 
     public static void useVirtualThreadPool() {
