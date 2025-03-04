@@ -16,7 +16,7 @@ Updating to Jetty 12 would be a too big change for this release.
 - #10: Java Module support
 - #11: Fix Spark error pages when there are websocket routes
 - #12: Update some versions: Jetty 11.0.24, slf4j 2.0.17, ...
-- Set response body in after after
+- #14: Set response body in after after
 
 ## 2.9.4
 
