@@ -103,6 +103,23 @@
       </div>
       <div class="col">
 <h1>Release Notes</h1>
+<h2>2.10.0</h2>
+<p>This is the first release by sparkjavateam.
+Highlights are <strong>Java 17</strong>, <strong>Jetty 11</strong>, virtual threads and a new website.
+Updating to Jetty 12 would be a too big change for this release.</p>
+<ul>
+<li>#1: <a href="https://sparkjavateam.github.io/spark">New website</a>, Powermock removed, testcases removed: StaticFilesFromArchiveTest, WebSocketServletContextHandlerFactoryTest, ServletFlagTest</li>
+<li>#2: Moved <a href="https://sparkjavateam.github.io/spark/examples.html">examples</a> from README.md to website</li>
+<li>#3: Set cookie name. If multiple webapps run on one host, they have the same session ID cookie. Use this code to give each app a unique cookie name: <code>EmbeddedServers.add(EmbeddedServers.Identifiers.JETTY, new EmbeddedJettyFactory().withCookieName(&quot;SESSIONID_&quot; + appName));</code></li>
+<li>#6: Update Jetty version. Minimum Java version is now 17. Package changes from javax.servlet to jakarta.servlet.</li>
+<li>#7: Expose SerializerChain</li>
+<li>#8: Allow setting servlet event listeners</li>
+<li>#9: Virtual threads (You need Java &gt;= 19 if you want to use this feature.)</li>
+<li>#10: Java Module support</li>
+<li>#11: Fix Spark error pages when there are websocket routes</li>
+<li>#12: Update some versions: Jetty 11.0.24, slf4j 2.0.17, ...</li>
+<li>#14: Set response body in after after</li>
+</ul>
 <h2>2.9.4</h2>
 <p>The release 2.9.4 is identical to the last release 2.9.4 by Per Wendel.
 This version serves as a starting point for the transition to our Spark source. Please change the Mavencentral coordinates to:</p>

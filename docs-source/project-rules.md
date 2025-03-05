@@ -8,16 +8,17 @@
 - example: Write one space before and after brackets in the if or for command.<br>bad: `if(a==b){`<br>good: `if (a == b) {`
 - Use `@Override` annotation.
 - Test case class name must end with 'Test'.
+- Commit messages should not contain mail addresses.
 
 ## Processing a pull request from a maintainer
 - Tests ok?
 - Code-review by other maintainer
-- Author squashes the PR into the master
+- Author squashes or merges the PR into the master
 
 ## Processing a pull request from a contributor
 - Tests ok?
 - Code-review by one maintainer
-- Maintainer squashes the PR into the master
+- Maintainer squashes or merges the PR into the master
 
 ## How to update the documentation
 The Markdown source files are in folder /docs. If you create a PR update these files.
@@ -39,4 +40,5 @@ Update file 'toc' if you have added a Markdown file. The first expression is the
 filename without an extension.
 
 ### Sitegen TO-DO
+- Dark theme and new Spark logo
 - Java syntax highlighting
